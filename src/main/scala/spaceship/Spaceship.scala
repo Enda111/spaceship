@@ -1,25 +1,29 @@
 package spaceship
 
-import jdk.internal.util.xml.impl.Input
+import com.sun.javafx.geom.Vec2d
+
+import scala.util.Random
 
 class Spaceship {
   var x: Double = 10
   var y: Double = 100
   var r: Float = 0
-  var dx: Double = 0.0
-  var dy: Double = 0.0
-  var dr: Double = 0.00
-  var ddr: Double = 0.00
+  var vx: Double = 0.0
+  var vy: Double = 0.0
+  var vr: Double = 0.00
+  var ar: Double = 0.00
   var t: Double = 0.0
   var dt: Double = 0.0
 
   def draw(game: Game): Unit = {
+
     game.pushMatrix()
 
     game.translate(x, y)
     game.rotate(r)
 
     game.stroke(255, 0, 0)
+    game.strokeWeight(0)
 
     // game.rect(x - 5, y - 5, 10, 10)
     game.line(-11, 0, -11 + 30, 0)
@@ -36,16 +40,34 @@ class Spaceship {
     game.line(-11 - 7.5, 0 - 2.5, -11 - 8, 0)
     game.line(-11 - 7.5, 0 + 2.5, -11 - 8, 0)
 
+    if (t != 0) {
+      game.stroke(0, 128 + Random.nextInt(127), Random.nextInt(100))
+      game.strokeWeight(5)
+      game.line(-11 - 8, 0, -19 - (1000 * t), 0)
+    }
     game.popMatrix()
 
-    dx = dx + Math.cos(r) * t
-    dy = dy + Math.sin(r) * t
+  }
 
-    x = x + dx
-    y = y + dy
-    r = r + dr
-    dr = dr + ddr
-    t = t + dt
+  def update(game: Game): Unit = {
+
+    vx = vx + Math.cos(r) * t
+    vy = vy + Math.sin(r) * t
+
+    World.blackholes.foreach(blackhole => {
+      val dx = x - blackhole.x
+      val dy = y - blackhole.y
+      val r = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2))
+      vx -= blackhole.mass * dx / Math.pow(r, 3)
+      vy -= blackhole.mass * dy / Math.pow(r, 3)
+
+    })
+
+    x = x + vx
+    y = y + vy
+    r = r + vr
+    vr = vr + ar
+    // t = t + dt
 
     if (x > game.width) {
       x -= game.width
@@ -59,7 +81,9 @@ class Spaceship {
     if (y < 0) {
       y += game.height
     }
-
   }
 
+  def printHello(): Unit = {
+    println("HELLO")
+  }
 }

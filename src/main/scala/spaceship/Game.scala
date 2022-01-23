@@ -12,13 +12,17 @@ class Game extends PApplet {
   }
 
   override def draw(): Unit = {
+    def drawWorld(): Unit = {
+      World.spaceship.draw(this)
+      World.blackholes.foreach(blackhole => blackhole.draw(this))
+    }
 
     noStroke()
     this.fill(15, 15, 15)
     this.rect(0, 0, width, height)
 
-    World.spaceship.draw(this)
-
+    drawWorld()
+    World.spaceship.update(this)
   }
 
   override def mouseClicked(): Unit = {
