@@ -7,4 +7,6 @@ object World {
 
   var blackholes = List(new Blackhole(500, 500, 50), new Blackhole(500, 50, 30))
 
+  var bullets: List[Bullet] = Nil
+
 }

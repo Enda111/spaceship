@@ -69,18 +69,18 @@ class Spaceship {
     vr = vr + ar
     // t = t + dt
 
-    if (x > game.width) {
-      x -= game.width
-    }
-    if (x < 0) {
-      x += game.width
-    }
-    if (y > game.height) {
-      y -= game.height
-    }
-    if (y < 0) {
-      y += game.height
-    }
+//    if (x > game.width) {
+//      x -= game.width
+//    }
+//    if (x < 0) {
+//      x += game.width
+//    }
+//    if (y > game.height) {
+//      y -= game.height
+//    }
+//    if (y < 0) {
+//      y += game.height
+//    }
   }
 
   def printHello(): Unit = {

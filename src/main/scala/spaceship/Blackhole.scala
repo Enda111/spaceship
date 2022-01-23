@@ -15,7 +15,11 @@ class Blackhole(
     noStroke()
     fill(120, 1, 96)
     ellipse(x, y, r, r)
-
   }
 
+  def distanceToPlayer(): Double = {
+    Math.sqrt(
+      Math.pow(World.spaceship.x - x, 2) + Math.pow(World.spaceship.y - y, 2)
+    )
+  }
 }
