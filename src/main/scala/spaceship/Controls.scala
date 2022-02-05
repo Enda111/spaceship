@@ -12,18 +12,18 @@ object Controls {
   val DT = 0.001
 
   def keyPressed(event: KeyEvent): Unit = {
-    println(s"Press ${event.getKeyCode}")
+    //println(s"Press ${event.getKeyCode}")
     if (event.getKeyCode == UP) {
-      World.spaceship.t = 0.01
+      Universe.spaceship.thrust = 0.01
     }
     if (event.getKeyCode == DOWN) {
-      World.spaceship.t = 0.01
+      Universe.spaceship.thrust = 0.01
     }
     if (event.getKeyCode == LEFT) {
-      World.spaceship.ar = -DDR
+      Universe.spaceship.rotationalAcceleration = -DDR
     }
     if (event.getKeyCode == RIGHT) {
-      World.spaceship.ar = DDR
+      Universe.spaceship.rotationalAcceleration = DDR
     }
 
   }
@@ -31,16 +31,16 @@ object Controls {
   def keyReleased(event: KeyEvent): Unit = {
     println(s"Release ${event.getKeyCode}")
     if (event.getKeyCode == UP) {
-      World.spaceship.t = 0.0
+      Universe.spaceship.thrust = 0.0
     }
     if (event.getKeyCode == DOWN) {
-      World.spaceship.t = 0.0
+      Universe.spaceship.thrust = 0.0
     }
     if (event.getKeyCode == LEFT) {
-      World.spaceship.ar = 0.0
+      Universe.spaceship.rotationalAcceleration = 0.0
     }
     if (event.getKeyCode == RIGHT) {
-      World.spaceship.ar = 0.0
+      Universe.spaceship.rotationalAcceleration = 0.0
     }
 
   }

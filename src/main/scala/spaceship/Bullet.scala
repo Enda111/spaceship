@@ -1,15 +1,13 @@
 package spaceship
 
 class Bullet(
-    var x: Double,
-    var y: Double,
-    var dx: Double,
-    var dy: Double
-) {
+    var position: Vec2,
+    var velocity: Vec2
+) extends GameObject {
 
-  def draw(game: Game): Unit = {}
+  override def draw(game: Game): Unit = {}
 
-  def update(game: Game): Unit = {}
+  override def update(game: Game): Unit = {}
 
   def dead: Boolean = {
     false
