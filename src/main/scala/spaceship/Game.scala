@@ -37,27 +37,7 @@ class Game extends PApplet {
     Universe.allThings.foreach(gameObject => gameObject.update(this))
 
     Universe.bullets = Universe.bullets.filterNot(bullet => bullet.dead)
-
-    Universe.blackholes = Universe.blackholes.filterNot(blackhole =>
-      blackhole.distanceToPlayer > 1500.0
-    )
-    if (Universe.blackholes.length < 10) {
-      if (respawn > 0) {
-        respawn = respawn - 1
-      } else {
-        respawn = 50
-        val rad = Random.nextInt(30) + 20
-        val vel = Universe.spaceship.velocity
-        val randangle = Random.between(0.0, Math.PI * 2)
-        val radius = 600.0
-        val pos = (Vec2(
-          Math.cos(randangle),
-          Math.sin(randangle)
-        ) * radius) + Universe.spaceship.position
-        Universe.blackholes =
-          new Blackhole(pos, vel, rad) :: Universe.blackholes
-      }
-    }
+    Universe.updateBlackholes()
 
     Universe.asteroids = Universe.asteroids.filterNot(asteroid =>
       asteroid.distanceToPlayer > 1500.0

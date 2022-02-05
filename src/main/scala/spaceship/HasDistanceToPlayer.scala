@@ -4,5 +4,5 @@ trait HasDistanceToPlayer {
   def position: Vec2
 
   def distanceToPlayer: Double =
-    (Universe.spaceship.position - position).magnitude
+    position.distance(Universe.spaceship.position)
 }

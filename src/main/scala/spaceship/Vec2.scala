@@ -19,6 +19,8 @@ case class Vec2(
 
   def magnitude: Double = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2))
 
+  def distance(v: Vec2): Double = (this - v).magnitude
+
 }
 object Vec2 {
   val Zero = Vec2(0, 0)

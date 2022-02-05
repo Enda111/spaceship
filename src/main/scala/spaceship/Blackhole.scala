@@ -22,4 +22,6 @@ class Blackhole(
     position = position + velocity
   }
 
+  def shouldMergeWith(bh: Blackhole): Boolean =
+    distance(bh) <= (radius + bh.radius)
 }
