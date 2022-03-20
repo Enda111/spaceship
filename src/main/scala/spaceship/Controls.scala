@@ -29,7 +29,7 @@ object Controls {
   }
 
   def keyReleased(event: KeyEvent): Unit = {
-    println(s"Release ${event.getKeyCode}")
+    // println(s"Release ${event.getKeyCode}")
     if (event.getKeyCode == UP) {
       Universe.spaceship.thrust = 0.0
     }

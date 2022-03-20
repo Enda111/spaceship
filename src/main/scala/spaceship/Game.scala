@@ -23,6 +23,23 @@ class Game extends PApplet {
       height / 2 - Universe.spaceship.position.y
     )
     Universe.allThings.foreach(gameObject => gameObject.draw(this))
+    fill(30, 225, 225)
+    text(
+      "x position: " + Universe.spaceship.position.x,
+      Universe.spaceship.position.x + 200,
+      Universe.spaceship.position.y + 200
+    )
+    text(
+      "y position: " + Universe.spaceship.position.y,
+      Universe.spaceship.position.x + 200,
+      Universe.spaceship.position.y + 220
+    )
+    text(
+      "velocity: " + Universe.spaceship.velocity.magnitude,
+      Universe.spaceship.position.x + 200,
+      Universe.spaceship.position.y + 240
+    )
+
     popMatrix()
 
     pushMatrix()
@@ -46,7 +63,7 @@ class Game extends PApplet {
       if (respawn > 0) {
         respawn = respawn - 1
       } else {
-        respawn = 50
+        respawn = Constants.maxAsteroids
         val rad = Random.nextInt(20) + 10
         val vel = Universe.spaceship.velocity
         val randangle = Random.between(0.0, Math.PI * 2)
@@ -65,7 +82,21 @@ class Game extends PApplet {
 
   override def mouseClicked(): Unit = {
     println("CLic")
-    Universe.bullets = new Bullet(Vec2(0, 0), Vec2(20, 20)) :: Universe.bullets
+    val bulletVelocity = Universe.spaceship.velocity + Vec2(
+      math.cos(Universe.spaceship.rotation),
+      math.sin(Universe.spaceship.rotation)
+    )
+    val bulletSpawnPos = Universe.spaceship.position + Vec2(
+      math.cos(Universe.spaceship.rotation) * 15,
+      math.sin(Universe.spaceship.rotation) * 19
+    )
+    Universe.bullets = new Bullet(
+      bulletSpawnPos,
+      bulletVelocity
+    ) :: Universe.bullets
+    println(Universe.spaceship.position)
+    println(Universe.spaceship.velocity)
+    println()
   }
 
   override def keyPressed(event: KeyEvent): Unit = Controls.keyPressed(event)

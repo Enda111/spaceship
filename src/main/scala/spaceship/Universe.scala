@@ -35,9 +35,12 @@ object Universe {
     mergeBlackholes()
   }
 
+  def killAllBlackholes(): Unit = {
+    blackholes = blackholes
+  }
   def killDistantBlackholes(): Unit = {
     blackholes =
-      blackholes.filterNot(blackhole => blackhole.distanceToPlayer > 1500.0)
+      blackholes.filterNot(blackhole => blackhole.distanceToPlayer > 2500.0)
   }
 
   def spawnBlackholes(): Unit = {
@@ -45,7 +48,7 @@ object Universe {
       if (respawn > 0) {
         respawn = respawn - 1
       } else {
-        respawn = 50
+        respawn = Constants.maxBlackHoles
         val rad = Random.nextInt(30) + 20
         val vel = spaceship.velocity
         val randangle = Random.between(0.0, Math.PI * 2)
