@@ -3,7 +3,7 @@ package spaceship
 class Asteroid(
     var position: Vec2,
     var velocity: Vec2,
-    var radius: Double
+    var mass: Double
 ) extends GameObject
     with SphericalBody
     with HasDistanceToPlayer {
@@ -14,7 +14,8 @@ class Asteroid(
     strokeWeight(1.0)
     stroke(240.0)
     noFill()
-    ellipse(position.x, position.y, radius, radius)
+    val r = radius
+    ellipse(position.x, position.y, r * 2, r * 2)
   }
 
   override def update(game: Game): Unit = {

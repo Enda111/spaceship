@@ -9,7 +9,7 @@ class Spaceship extends GameObject with HasGravity {
   var rotationalVelocity: Double = 0.00
   var rotationalAcceleration: Double = 0.00
   var thrust: Double = 0.0
-  val mass: Double = 1
+  val mass: Double = 300
 
   override def draw(game: Game): Unit = {
 
@@ -55,6 +55,25 @@ class Spaceship extends GameObject with HasGravity {
 
     rotation = rotation + rotationalVelocity
     rotationalVelocity = rotationalVelocity + rotationalAcceleration
+
+    if (position.x > game.width) {
+      position = Vec2(0, position.y)
+    }
+    if (position.x < 0) {
+      position = Vec2(game.width, position.y)
+    }
+    if (position.y > game.height) {
+      position = Vec2(position.x, 0)
+    }
+    if (position.y < 0) {
+      position = Vec2(position.x, game.height)
+    }
+    /* if (math.abs(velocity.x) > Constants.velocityCap) {
+      velocity = Vec2(Constants.velocityCap, velocity.y)
+    }
+    if (math.abs(velocity.y) > Constants.velocityCap) {
+      velocity = Vec2(velocity.x, Constants.velocityCap)
+    }*/
 
   }
 

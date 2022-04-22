@@ -3,7 +3,7 @@ package spaceship
 class Blackhole(
     var position: Vec2,
     var velocity: Vec2,
-    var radius: Double
+    var mass: Double
 ) extends GameObject
     with SphericalBody
     with HasDistanceToPlayer {
@@ -14,14 +14,19 @@ class Blackhole(
     strokeWeight(1.5)
     stroke(225, 30, 225)
     noFill()
-    ellipse(position.x, position.y, radius, radius)
+    val r = radius
+    ellipse(position.x, position.y, r * 2, r * 2)
   }
 
   override def update(game: Game): Unit = {
-    velocity = velocity + Gravity.acceleration(this)
-    position = position + velocity
+    //velocity = velocity + Gravity.acceleration(this)
+    //position = position + velocity
   }
 
-  def shouldMergeWith(bh: Blackhole): Boolean =
-    distance(bh) <= (radius + bh.radius)
+  def shouldMergeWith(sb: SphericalBody): Boolean =
+    distance(sb) <= (radius + sb.radius)
+
+  def consume(other: Asteroid): Unit = {
+    this.mass = this.mass + other.mass
+  }
 }

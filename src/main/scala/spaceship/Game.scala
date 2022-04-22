@@ -18,12 +18,12 @@ class Game extends PApplet {
     this.rect(0, 0, width, height)
 
     pushMatrix()
-    translate(
+    /*translate(
       width / 2 - Universe.spaceship.position.x,
       height / 2 - Universe.spaceship.position.y
-    )
+    )*/
     Universe.allThings.foreach(gameObject => gameObject.draw(this))
-    fill(30, 225, 225)
+    /*fill(30, 225, 225)
     text(
       "x position: " + Universe.spaceship.position.x,
       Universe.spaceship.position.x + 200,
@@ -38,7 +38,7 @@ class Game extends PApplet {
       "velocity: " + Universe.spaceship.velocity.magnitude,
       Universe.spaceship.position.x + 200,
       Universe.spaceship.position.y + 240
-    )
+    )*/
 
     popMatrix()
 
@@ -64,15 +64,17 @@ class Game extends PApplet {
         respawn = respawn - 1
       } else {
         respawn = Constants.maxAsteroids
-        val rad = Random.nextInt(20) + 10
-        val vel = Universe.spaceship.velocity
+        val mass = Random.nextInt(5) + 2
+        //val vel = Universe.spaceship.velocity
+        val asteroidVelocity = Vec2(math.random(), math.random())
         val randangle = Random.between(0.0, Math.PI * 2)
         val radius = 600.0
         val pos = (Vec2(
           Math.cos(randangle),
           Math.sin(randangle)
         ) * radius) + Universe.spaceship.position
-        Universe.asteroids = new Asteroid(pos, vel, rad) :: Universe.asteroids
+        Universe.asteroids =
+          new Asteroid(pos, asteroidVelocity, mass) :: Universe.asteroids
       }
     }
 
@@ -81,10 +83,10 @@ class Game extends PApplet {
   var respawn = 50
 
   override def mouseClicked(): Unit = {
-    println("CLic")
+    // println("CLic")
     val bulletVelocity = Universe.spaceship.velocity + Vec2(
-      math.cos(Universe.spaceship.rotation),
-      math.sin(Universe.spaceship.rotation)
+      math.cos(Universe.spaceship.rotation) * 10,
+      math.sin(Universe.spaceship.rotation) * 10
     )
     val bulletSpawnPos = Universe.spaceship.position + Vec2(
       math.cos(Universe.spaceship.rotation) * 15,

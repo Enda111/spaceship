@@ -8,3 +8,5 @@ lazy val root = (project in file("."))
   )
 
 libraryDependencies += "org.processing" % "core" % "3.3.7"
+libraryDependencies += "org.scalaz" %% "scalaz-core" % "7.3.6"
+libraryDependencies += "com.learningobjects" %% "scaloi" % "0.3.1"

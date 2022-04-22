@@ -1,6 +1,9 @@
 package spaceship
 
 import scala.util.Random
+import scalaz._
+import scalaz.Scalaz._
+import scaloi.syntax.collection._
 
 object Universe {
 
@@ -9,12 +12,11 @@ object Universe {
   val spaceship = new Spaceship
 
   var blackholes = List(
-    new Blackhole(Vec2(500, 500), Vec2(-2, 0), 50),
-    new Blackhole(Vec2(500, 50), Vec2.Zero, 30)
+    new Blackhole(Vec2(400, 300), Vec2(0, 0), 2000)
   )
 
   var asteroids: List[Asteroid] = List(
-    new Asteroid(Vec2(100, 100), Vec2.Zero, 30.0)
+    //new Asteroid(Vec2(100, 100), Vec2.Zero, 30.0)
   )
 
   var bullets: List[Bullet] = Nil
@@ -31,8 +33,8 @@ object Universe {
 
   def updateBlackholes(): Unit = {
     killDistantBlackholes()
-    spawnBlackholes()
-    mergeBlackholes()
+    // spawnBlackholes()
+    mergeBlackholesAst()
   }
 
   def killAllBlackholes(): Unit = {
@@ -70,11 +72,22 @@ object Universe {
         val nb = new Blackhole(
           (b1.position + b2.position) / 2,
           (b1.velocity + b2.velocity) / 2,
-          b1.radius + b2.radius
+          b1.mass + b2.mass
         )
         blackholes = nb :: blackholes.filter(b => (b ne b1) && (b ne b2))
 
       case _ =>
+    }
+  }
+
+  def mergeBlackholesAst(): Unit = {
+    blackholes foreach { blackhole =>
+      asteroids foreach { asteroid =>
+        if (blackhole.shouldMergeWith(asteroid)) {
+          blackhole.consume(asteroid)
+          asteroids = asteroids.filter(a => a ne asteroid)
+        }
+      }
     }
   }
 }

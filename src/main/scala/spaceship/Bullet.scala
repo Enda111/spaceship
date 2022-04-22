@@ -3,7 +3,9 @@ package spaceship
 class Bullet(
     var position: Vec2,
     var velocity: Vec2
-) extends GameObject {
+) extends GameObject
+    with HasGravity {
+  override def mass: Double = 50
 
   override def draw(game: Game): Unit = {
     import game._
@@ -14,6 +16,7 @@ class Bullet(
   }
 
   override def update(game: Game): Unit = {
+    velocity = velocity + Gravity.acceleration(this)
     position = position + velocity
   }
 
