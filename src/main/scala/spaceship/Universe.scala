@@ -12,7 +12,7 @@ object Universe {
   val spaceship = new Spaceship
 
   var blackholes = List(
-    new Blackhole(Vec2(400, 300), Vec2(0, 0), 2000)
+    new Blackhole(Vec2(800, 400), Vec2(0, 0), 2000)
   )
 
   var asteroids: List[Asteroid] = List(

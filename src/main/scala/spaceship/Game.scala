@@ -8,7 +8,7 @@ import scala.util.Random
 class Game extends PApplet {
   Universe.game = this
   override def settings(): Unit = {
-    size(800, 600)
+    size(1600, 800)
   }
 
   override def draw(): Unit = {

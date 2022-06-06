@@ -55,6 +55,9 @@ class Spaceship extends GameObject with HasGravity {
 
     rotation = rotation + rotationalVelocity
     rotationalVelocity = rotationalVelocity + rotationalAcceleration
+    if (velocity == Constants.maxVelocity) {
+      velocity -= Vec2(1, 1)
+    }
 
     if (position.x > game.width) {
       position = Vec2(0, position.y)
